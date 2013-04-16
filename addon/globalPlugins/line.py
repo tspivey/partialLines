@@ -4,8 +4,11 @@ import textInfos
 import speech
 import scriptHandler
 import controlTypes
+import addonHandler
+addonHandler.initTranslation()
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+
 	def script_reportToStartOfLine(self,gesture):
 		obj=api.getFocusObject()
 		treeInterceptor=obj.treeInterceptor
@@ -23,6 +26,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
 		else:
 			speech.speakSpelling(info.text)
+	script_reportToStartOfLine.__doc__ = _("Read from cursor to start of line")
 
 	def script_reportToEndOfLine(self,gesture):
 		obj=api.getFocusObject()
@@ -41,6 +45,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
 		else:
 			speech.speakSpelling(info.text)
+	script_reportToEndOfLine.__doc__ = _("Read from cursor to end of line")
 
 	__gestures = {
 	"kb:NVDA+shift+pageUp":"reportToStartOfLine",
