@@ -6,6 +6,32 @@ import scriptHandler
 import controlTypes
 import addonHandler
 addonHandler.initTranslation()
+from editableText import EditableText
+import config
+import ui
+
+mode = 'full'
+
+def _caretScriptPostMovedHelper(self, speakUnit, info=None):
+	if scriptHandler.isScriptWaiting():
+		return
+	if not info:
+		try:
+			info = self.makeTextInfo(textInfos.POSITION_CARET)
+		except:
+			return
+	if config.conf["reviewCursor"]["followCaret"] and api.getNavigatorObject() is self:
+		api.setReviewPosition(info)
+	if speakUnit:
+		info2 = info.copy()
+		info.expand(speakUnit)
+		if speakUnit == textInfos.UNIT_LINE and mode == 'start':
+			info.setEndPoint(info2, "endToEnd")
+		elif speakUnit == textInfos.UNIT_LINE and mode == 'end':
+			info.setEndPoint(info2, "startToStart")
+		speech.speakTextInfo(info, unit=speakUnit, reason=controlTypes.REASON_CARET)
+
+EditableText._caretScriptPostMovedHelper = _caretScriptPostMovedHelper
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
@@ -47,7 +73,21 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			speech.speakSpelling(info.text)
 	script_reportToEndOfLine.__doc__ = _("Read from cursor to end of line")
 
+	def script_setLineReadingMode(self, gesture):
+		global mode
+		if mode == 'full':
+			mode = 'start'
+			ui.message(_("Read to start"))
+		elif mode == 'start':
+			mode = 'end'
+			ui.message(_("Read to end"))
+		elif mode == 'end':
+			mode = 'full'
+			ui.message(_("Read entire line"))
+	script_setLineReadingMode.__doc__ = _("When using the arrow keys, toggle line reading mode between read to start, read to end, and read complete line.")
+
 	__gestures = {
 	"kb:NVDA+shift+pageUp":"reportToStartOfLine",
 	"kb:NVDA+shift+pageDown":"reportToEndOfLine",
+	"kb:NVDA+shift+delete": "setLineReadingMode",
 }
