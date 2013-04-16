@@ -31,9 +31,13 @@ def _caretScriptPostMovedHelper(self, speakUnit, info=None):
 			info.setEndPoint(info2, "startToStart")
 		speech.speakTextInfo(info, unit=speakUnit, reason=controlTypes.REASON_CARET)
 
-EditableText._caretScriptPostMovedHelper = _caretScriptPostMovedHelper
-
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+
+	def __init__(self):
+		super(GlobalPlugin, self).__init__()
+		global old
+		old = EditableText._caretScriptPostMovedHelper
+		EditableText._caretScriptPostMovedHelper = _caretScriptPostMovedHelper
 
 	def script_reportToStartOfLine(self,gesture):
 		obj=api.getFocusObject()
@@ -85,6 +89,9 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			mode = 'full'
 			ui.message(_("Read entire line"))
 	script_setLineReadingMode.__doc__ = _("When using the arrow keys, toggle line reading mode between read to start, read to end, and read complete line.")
+
+	def terminate(self):
+		EditableText._caretScriptPostMovedHelper = old
 
 	__gestures = {
 	"kb:NVDA+shift+pageUp":"reportToStartOfLine",
