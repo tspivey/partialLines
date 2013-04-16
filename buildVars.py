@@ -7,18 +7,17 @@ _ = lambda x : x
 # Add-on information variables
 addon_info = {
 	# add-on Name
-	"addon-name" : "addon-template",
+	"addon-name" : "partial-lines",
 	# Add-on description
 	# TRANSLATORS: Summary for this add-on to be shown on installation and add-on information.
-	"addon-summary" : _("Add-on quick summary"),
+	"addon-summary" : _("Read partial lines"),
 	# Add-on description
 	# Translators: Long description to be shown for this add-on on installation and add-on information
-	"addon-description" : _("""Description for the add-on.
-It can span multiple lines."""),
+	"addon-description" : _("Read partial lines. NVDA+shift+page up reads to the start of current line, NVDA+shift+page down reads to the end."),
 	# version
-	"addon-version" : "x.y.z",
+	"addon-version" : "0.20130416.01",
 	# Author(s)
-	"addon-author" : "name <name@domain.com>",
+	"addon-author" : "Tyler Spivey <tspivey@pcdesk.net>",
 	# URL for the add-on documentation support
 	"addon-url" : None
 }
@@ -28,7 +27,7 @@ import os.path
 
 # Define the python files that are the sources of your add-on.
 # You can use glob expressions here, they will be expanded.
-pythonSources = []
+pythonSources = ['addon/globalPlugins/line.py']
 
 # Files that contain strings for translation. Usually your python sources
 i18nSources = pythonSources + ["buildVars.py"]
