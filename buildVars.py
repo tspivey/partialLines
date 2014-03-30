@@ -15,7 +15,7 @@ addon_info = {
 	# Translators: Long description to be shown for this add-on on installation and add-on information
 	"addon-description" : _("Read partial lines. NVDA+shift+page up reads to the start of current line, NVDA+shift+page down reads to the end. NVDA+shift+delete toggles what happens when you press the up/down arrow keys between read entire line, read to start and read to end."),
 	# version
-	"addon-version" : "0.20130416.02",
+	"addon-version" : "0.20140329.01",
 	# Author(s)
 	"addon-author" : "Tyler Spivey <tspivey@pcdesk.net>",
 	# URL for the add-on documentation support
