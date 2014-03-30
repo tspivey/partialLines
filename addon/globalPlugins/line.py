@@ -6,23 +6,24 @@ import scriptHandler
 import controlTypes
 import addonHandler
 addonHandler.initTranslation()
-from editableText import EditableText
+from editableText import EditableText, isScriptWaiting, willSayAllResume
 import config
 import ui
+import review
+import braille
 
 mode = 'full'
 
-def _caretScriptPostMovedHelper(self, speakUnit, info=None):
-	if scriptHandler.isScriptWaiting():
+def _caretScriptPostMovedHelper(self, speakUnit, gesture, info=None):
+	if isScriptWaiting():
 		return
 	if not info:
 		try:
 			info = self.makeTextInfo(textInfos.POSITION_CARET)
 		except:
 			return
-	if config.conf["reviewCursor"]["followCaret"] and api.getNavigatorObject() is self:
-		api.setReviewPosition(info)
-	if speakUnit:
+	review.handleCaretMove(info)
+	if speakUnit and not willSayAllResume(gesture):
 		info2 = info.copy()
 		info.expand(speakUnit)
 		if speakUnit == textInfos.UNIT_LINE and mode == 'start':
@@ -30,6 +31,7 @@ def _caretScriptPostMovedHelper(self, speakUnit, info=None):
 		elif speakUnit == textInfos.UNIT_LINE and mode == 'end':
 			info.setEndPoint(info2, "startToStart")
 		speech.speakTextInfo(info, unit=speakUnit, reason=controlTypes.REASON_CARET)
+	braille.handler.handleCaretMove(self)
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
