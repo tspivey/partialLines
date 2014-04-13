@@ -7,7 +7,7 @@ _ = lambda x : x
 # Add-on information variables
 addon_info = {
 	# add-on Name
-	"addon-name" : "partial-lines",
+	"addon-name" : "partialLines",
 	# Add-on description
 	# TRANSLATORS: Summary for this add-on to be shown on installation and add-on information.
 	"addon-summary" : _("Read partial lines"),
