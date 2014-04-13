@@ -37,9 +37,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
-		global old
-		old = EditableText._caretScriptPostMovedHelper
-		EditableText._caretScriptPostMovedHelper = _caretScriptPostMovedHelper
+		self.patched = False
 
 	def script_reportToStartOfLine(self,gesture):
 		obj=api.getFocusObject()
@@ -90,10 +88,19 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		elif mode == 'end':
 			mode = 'full'
 			ui.message(_("Read entire line"))
+		self.patch()
 	script_setLineReadingMode.__doc__ = _("When using the arrow keys, toggle line reading mode between read to start, read to end, and read complete line.")
 
 	def terminate(self):
-		EditableText._caretScriptPostMovedHelper = old
+		if self.patched:
+			EditableText._caretScriptPostMovedHelper = old
+
+	def patch(self):
+		global old
+		if self.patched:
+			return
+		old = EditableText._caretScriptPostMovedHelper
+		EditableText._caretScriptPostMovedHelper = _caretScriptPostMovedHelper
 
 	__gestures = {
 	"kb:NVDA+shift+pageUp":"reportToStartOfLine",
