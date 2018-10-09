@@ -1,3 +1,5 @@
+# -*- coding: UTF-8 -*-
+
 # Build customizations
 # Change this file instead of sconstruct or manifest files, whenever possible.
 
@@ -6,20 +8,28 @@ _ = lambda x : x
 
 # Add-on information variables
 addon_info = {
-	# add-on Name
-	"addon-name" : "partialLines",
+	# for previously unpublished addons, please follow the community guidelines at:
+	# https://bitbucket.org/nvdaaddonteam/todo/raw/master/guideLines.txt
+	# add-on Name, internal for nvda
+	"addon_name" : "partialLines",
+	# Add-on summary, usually the user visible name of the addon.
+	# Translators: Summary for this add-on to be shown on installation and add-on information.
+	"addon_summary" : _("Partial Lines"),
 	# Add-on description
-	# TRANSLATORS: Summary for this add-on to be shown on installation and add-on information.
-	"addon-summary" : _("Read partial lines"),
-	# Add-on description
-	# Translators: Long description to be shown for this add-on on installation and add-on information
-	"addon-description" : _("Read partial lines. NVDA+shift+page up reads to the start of current line, NVDA+shift+page down reads to the end. NVDA+shift+delete toggles what happens when you press the up/down arrow keys between read entire line, read to start and read to end."),
+	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+	"addon_description" : _("""Changes the up and down arrows to read before or after the cursor"""),
 	# version
-	"addon-version" : "0.20140412.01",
+	"addon_version" : "0.1",
 	# Author(s)
-	"addon-author" : "Tyler Spivey <tspivey@pcdesk.net>",
+	"addon_author" : u"Tyler Spivey <tspivey@pcdesk.net>",
 	# URL for the add-on documentation support
-	"addon-url" : None
+	"addon_url" : None,
+	# Documentation file name
+	"addon_docFileName" : "readme.html",
+	# Minimum NVDA version supported *e.g. "2018.3")
+	"addon_minimumNVDAVersion" : None,
+	# Add-on update channel (default is stable or None)
+	"addon_updateChannel" : None,
 }
 
 
@@ -27,7 +37,7 @@ import os.path
 
 # Define the python files that are the sources of your add-on.
 # You can use glob expressions here, they will be expanded.
-pythonSources = ['addon/globalPlugins/line.py']
+pythonSources = ['addon/globalPlugins/*.py']
 
 # Files that contain strings for translation. Usually your python sources
 i18nSources = pythonSources + ["buildVars.py"]
