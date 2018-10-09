@@ -1,3 +1,5 @@
+# Copyright 2014-2018 Tyler Spivey, released under the GPL
+# See the license in copying.txt.
 import globalPluginHandler
 import api
 import textInfos
@@ -34,6 +36,8 @@ def _caretScriptPostMovedHelper(self, speakUnit, gesture, info=None):
 	braille.handler.handleCaretMove(self)
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
+
+	scriptCategory = _("Partial Lines")
 
 	def __init__(self):
 		super(GlobalPlugin, self).__init__()
