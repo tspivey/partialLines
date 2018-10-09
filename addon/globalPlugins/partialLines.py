@@ -60,7 +60,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
 		else:
 			speech.speakSpelling(info.text)
-	script_reportToStartOfLine.__doc__ = _("Read from cursor to start of line")
+	script_reportToStartOfLine.__doc__ = _("Reads from the start of the line to the cursor")
 
 	def script_reportToEndOfLine(self,gesture):
 		obj=api.getFocusObject()
@@ -79,7 +79,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
 		else:
 			speech.speakSpelling(info.text)
-	script_reportToEndOfLine.__doc__ = _("Read from cursor to end of line")
+	script_reportToEndOfLine.__doc__ = _("Reads from the cursor to the end of the line")
 
 	def script_setLineReadingMode(self, gesture):
 		global mode
@@ -93,7 +93,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 			mode = 'full'
 			ui.message(_("Read entire line"))
 		self.patch()
-	script_setLineReadingMode.__doc__ = _("When using the arrow keys, toggle line reading mode between read to start, read to end, and read complete line.")
+	script_setLineReadingMode.__doc__ = _("When moving by line, toggle line reading mode between read to start, read to end, and read complete line.")
 
 	def terminate(self):
 		if self.patched:
