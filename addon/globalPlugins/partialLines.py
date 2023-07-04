@@ -15,6 +15,10 @@ import review
 import braille
 
 mode = 'full'
+if hasattr(controlTypes, 'OutputReason'):
+	reason = controlTypes.OutputReason .CARET
+else:
+	reason = controlTypes.REASON_CARET
 
 def _caretScriptPostMovedHelper(self, speakUnit, gesture, info=None):
 	if isScriptWaiting():
@@ -24,6 +28,8 @@ def _caretScriptPostMovedHelper(self, speakUnit, gesture, info=None):
 			info = self.makeTextInfo(textInfos.POSITION_CARET)
 		except:
 			return
+		# Forget the word currently being typed as the user has moved the caret somewhere else.
+		speech.clearTypedWordBuffer()
 	review.handleCaretMove(info)
 	if speakUnit and not willSayAllResume(gesture):
 		info2 = info.copy()
@@ -32,7 +38,7 @@ def _caretScriptPostMovedHelper(self, speakUnit, gesture, info=None):
 			info.setEndPoint(info2, "endToEnd")
 		elif speakUnit == textInfos.UNIT_LINE and mode == 'end':
 			info.setEndPoint(info2, "startToStart")
-		speech.speakTextInfo(info, unit=speakUnit, reason=controlTypes.REASON_CARET)
+		speech.speakTextInfo(info, unit=speakUnit, reason=reason)
 	braille.handler.handleCaretMove(self)
 
 class GlobalPlugin(globalPluginHandler.GlobalPlugin):
@@ -57,7 +63,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		info.expand(textInfos.UNIT_LINE)
 		info.setEndPoint(info2, "endToEnd")
 		if scriptHandler.getLastScriptRepeatCount()==0:
-			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
+			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=reason)
 		else:
 			speech.speakSpelling(info.text)
 	script_reportToStartOfLine.__doc__ = _("Reads from the start of the line to the cursor")
@@ -76,7 +82,7 @@ class GlobalPlugin(globalPluginHandler.GlobalPlugin):
 		info.expand(textInfos.UNIT_LINE)
 		info.setEndPoint(info2, "startToStart")
 		if scriptHandler.getLastScriptRepeatCount()==0:
-			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=controlTypes.REASON_CARET)
+			speech.speakTextInfo(info,unit=textInfos.UNIT_LINE,reason=reason)
 		else:
 			speech.speakSpelling(info.text)
 	script_reportToEndOfLine.__doc__ = _("Reads from the cursor to the end of the line")
