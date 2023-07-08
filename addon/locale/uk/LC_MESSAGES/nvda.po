@@ -1,0 +1,59 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the 'partialLines' package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 'partialLines' '0.4'\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2023-07-07 23:59+0300\n"
+"PO-Revision-Date: 2023-07-08 21:47+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: uk_UA\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.3.2\n"
+
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: addon\globalPlugins\partialLines.py:46 buildVars.py:17
+msgid "Partial Lines"
+msgstr "Часткові рядки"
+
+#: addon\globalPlugins\partialLines.py:69
+msgid "Reads from the start of the line to the cursor"
+msgstr "Читає від початку рядка до курсора"
+
+#: addon\globalPlugins\partialLines.py:88
+msgid "Reads from the cursor to the end of the line"
+msgstr "Читає від курсора до кінця рядка"
+
+#: addon\globalPlugins\partialLines.py:94
+msgid "Read to start"
+msgstr "Читати від початку"
+
+#: addon\globalPlugins\partialLines.py:97
+msgid "Read to end"
+msgstr "Читати до кінця"
+
+#: addon\globalPlugins\partialLines.py:100
+msgid "Read entire line"
+msgstr "Читати весь рядок"
+
+#: addon\globalPlugins\partialLines.py:102
+msgid ""
+"When moving by line, toggle line reading mode between read to start, read to "
+"end, and read complete line."
+msgstr ""
+"При переміщенні по рядках перемикайте режим читання рядків між читанням від "
+"початку, читанням до кінця і читанням усього рядка."
+
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid "Changes the up and down arrows to read before or after the cursor"
+msgstr ""
+"Змінює призначення стрілок вгору та вниз для читання до або після курсора"
